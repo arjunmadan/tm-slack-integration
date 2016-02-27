@@ -22,7 +22,7 @@ app.get('/',function(req, res){
 			var result = JSON.parse(body);
 			for (var it in result._embedded.events) {
 				tempEvent.title = result._embedded.events[it].name;
-				tempEvent.title_link = 'www.ticketmaster.com/event/' + result._embedded.events[it].id;
+				tempEvent.title_link = 'http://www.ticketmaster.com/event/' + result._embedded.events[it].id;
 				tempEvent.text = result._embedded.events[it]._embedded.venue[0].name + ' on ' + result._embedded.events[it].dates.start.localDate + '\n'
 				resp.push(tempEvent);
 			}

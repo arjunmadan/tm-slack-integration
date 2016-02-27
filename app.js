@@ -11,7 +11,7 @@ app.get('/',function(req, res){
         text: req.query.text
     };
 
-    if(request.text) {
+    if(slackRequest.text) {
     	parameter = slackRequest.text.split(" ");
     }
     var url = 'https://app.ticketmaster.com/discovery/v1/events.json?postalCode=' + parameter[1] + '&apikey=' + process.env.TM_API_KEY + '&keyword=' + parameter[2];

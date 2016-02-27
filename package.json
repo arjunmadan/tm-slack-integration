@@ -1,5 +1,5 @@
 {
-  "name": "tm-slack-integratoin",
+  "name": "tm-slack-integration",
   "version": "0.1.0",
   "description": "A demo application that interacts with a Slack / command and the Ticketmaster API",
   "main": "app.js",
@@ -7,7 +7,8 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "express": "^4.13.4"
+    "express": "^4.13.4",
+    "request": "^2.69.0"
   },
   "engines": {
     "node": "4.1.0"

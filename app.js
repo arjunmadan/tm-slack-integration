@@ -8,7 +8,8 @@ app.get('/',function(req, res){
 	var parameter;
 	var resp = '';
 	var slackRequest = {
-		text: req.query.text
+		text: req.query.text,
+		response_url: req.query.response_url
 	};
 
 	if(slackRequest.text) {
@@ -23,13 +24,17 @@ app.get('/',function(req, res){
 				resp += result._embedded.events[it].name + ' at ' + result._embedded.events[it]._embedded.venue[0].name + ' on ' + result._embedded.events[it].dates.start.localDate + '\n' ;
 			}
 			console.log(resp);
-			res.send(resp);
+			request.post({
+				url: slackRequest.response_url,
+				text: resp 
+			});
 		}
 		else {
 			//send back a string with an error
 			console.log(error);
 		}
 	});
+	res.send();
 });
 
 app.listen(process.env.PORT || 3000);

@@ -28,8 +28,9 @@ app.get('/',function(req, res){
 			}
 			resultJSON = {
 				text: 'List of events:',
-				attachments: resp
-			}
+				attachments: resp,
+				response_type: 'in_channel'
+			};
 			console.log(JSON.stringify(resultJSON));
 			request.post({
 				url: slackRequest.response_url,

@@ -35,6 +35,7 @@ app.get('/',function(req, res){
 					console.log(error);
 				}
 				else {
+					console.log(response);
 					console.log(response.statusCode);
 				}
 			});

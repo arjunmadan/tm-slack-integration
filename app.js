@@ -24,7 +24,8 @@ app.get('/',function(req, res){
 			}
 			request.post({
 				url: slackRequest.response_url,
-				text: resp 
+				headers: 'Content-type: application/json',
+				body: { text: resp } 
 			}, function (error, response, body) {
 				if(!error && response.statusCode == 200) {
 					console.log("Success!");

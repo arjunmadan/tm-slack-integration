@@ -27,6 +27,16 @@ app.get('/',function(req, res){
 			request.post({
 				url: slackRequest.response_url,
 				text: resp 
+			}, function (error, response, body) {
+				if(!error && response.statusCode == 200) {
+					console.log("Success!");
+				}
+				else if(error){
+					console.log(error);
+				}
+				else {
+					console.log(response.statusCode);
+				}
 			});
 		}
 		else {

@@ -6,7 +6,8 @@ var app = express();
 app.get('/',function(req, res){
 
 	var parameter;
-	var resp = '';
+	var tempEvent = {};
+	var resp = [];
 	var slackRequest = {
 		text: req.query.text,
 		response_url: req.query.response_url
@@ -20,12 +21,20 @@ app.get('/',function(req, res){
 		if (!error && response.statusCode == 200) {
 			var result = JSON.parse(body);
 			for (var it in result._embedded.events) {
-				resp += result._embedded.events[it].name + ' at ' + result._embedded.events[it]._embedded.venue[0].name + ' on ' + result._embedded.events[it].dates.start.localDate + '\n' ;
+				tempEvent.title = result._embedded.events[it].name;
+				tempEvent.title_link = 'www.ticketmaster.com/event/' + result._embedded.events[it].id;
+				tempEvent.text = result._embedded.events[it]._embedded.venue[0].name + ' on ' + result._embedded.events[it].dates.start.localDate + '\n'
+				resp.push(tempEvent);
 			}
+			resultJSON = {
+				text: 'List of events:',
+				attachments: resp
+			}
+			console.log(JSON.stringify(resultJSON));
 			request.post({
 				url: slackRequest.response_url,
 				headers: 'Content-type: application/json',
-				body: '{ \"text\":\"' + resp + '\"}' 
+				body: JSON.stringify(resultJSON) 
 			}, function (error, response, body) {
 				if(!error && response.statusCode == 200) {
 					console.log("Success!");

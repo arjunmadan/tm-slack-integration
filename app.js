@@ -19,11 +19,9 @@ app.get('/',function(req, res){
 	request(url, function (error, response, body) {
 		if (!error && response.statusCode == 200) {
 			var result = JSON.parse(body);
-			console.log(result);
 			for (var it in result._embedded.events) {
 				resp += result._embedded.events[it].name + ' at ' + result._embedded.events[it]._embedded.venue[0].name + ' on ' + result._embedded.events[it].dates.start.localDate + '\n' ;
 			}
-			console.log(resp);
 			request.post({
 				url: slackRequest.response_url,
 				text: resp 
@@ -35,7 +33,7 @@ app.get('/',function(req, res){
 					console.log(error);
 				}
 				else {
-					console.log(response);
+					console.log(body);
 					console.log(response.statusCode);
 				}
 			});

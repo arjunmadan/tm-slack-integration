@@ -1,0 +1,28 @@
+{
+  "name": "tm-slack-integratoin",
+  "version": "0.1.0",
+  "description": "A demo application that interacts with a Slack / command and the Ticketmaster API",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    
+  },
+  "engines": {
+    "node": "4.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/trueblue2704/tm-slack-integration"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express",
+    "ticketmaster",
+    "slack",
+    "custom integration"
+  ],
+  "license": "MIT"
+}

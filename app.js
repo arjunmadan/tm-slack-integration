@@ -45,7 +45,7 @@ app.get('/',function(req, res){
 			console.log(error);
 		}
 	});
-	res.send();
+	res.send("Processing");
 });
 
 app.listen(process.env.PORT || 3000);

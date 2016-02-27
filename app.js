@@ -5,29 +5,31 @@ var app = express();
 
 app.get('/',function(req, res){
 
-    var parameter;
-    var resp;
-    var slackRequest = {
-        text: req.query.text
-    };
+	var parameter;
+	var resp = '';
+	var slackRequest = {
+		text: req.query.text
+	};
 
-    if(slackRequest.text) {
-    	parameter = slackRequest.text.split(" ");
-    }
-    var url = 'https://app.ticketmaster.com/discovery/v1/events.json?postalCode=' + parameter[1] + '&apikey=' + process.env.TM_API_KEY + '&keyword=' + parameter[2];
-    request(url, function (error, response, body) {
+	if(slackRequest.text) {
+		parameter = slackRequest.text.split(" ");
+	}
+	var url = 'https://app.ticketmaster.com/discovery/v1/events.json?postalCode=' + parameter[1] + '&apikey=' + process.env.TM_API_KEY + '&keyword=' + parameter[2];
+	request(url, function (error, response, body) {
 		if (!error && response.statusCode == 200) {
-			console.log(body);
-			//format response (resp)
+			var result = JSON.parse(body);
+			console.log(result);
+			for (var it in result._embedded.events) {
+				resp += result._embedded.events[it].name + ' at ' + result._embedded.events[it]._embedded.venue[0].name + ' on ' + result._embedded.events[it].dates.start.localDate + '\n' ;
+			}
+			console.log(resp);
+			res.send(resp);
 		}
 		else {
 			//send back a string with an error
 			console.log(error);
 		}
 	});
-
-
-    res.send("I got this: "+slackRequest.text);
 });
 
 app.listen(process.env.PORT || 3000);
